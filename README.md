@@ -23,8 +23,9 @@ This is the first Code Kata I'm designing and this repo is currently work in Pro
 
 # Design Parts
 
-<a id="part-1-plugboard"/>
+<a id="part-1-plugboard"></a>
 ## Part 1 - The Plugboard
+
 For the first part of this kata you have to design the plugboard.
 The plugboard contains all 26 letters and maps one to another.
 
@@ -42,7 +43,7 @@ The plugboard contains all 26 letters and maps one to another.
 	- This counts as one connection on the plugboard
 - If a configuration or a connection is not legitimate raise an exception
 
-<a id="part-2-one-rotor"/>
+<a id="part-2-one-rotor"></a>
 ## Part 2 - One Rotor
 For the second part of this kata you have to design one rotor.
 A rotor is a disk containig 26 inputs and 26 outputs.
