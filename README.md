@@ -16,7 +16,7 @@ This is the first Code Kata I'm designing and this repo is currently work in Pro
 ---
 
 # Table of Contents
-1. [Roadmap](Todo.md)
+1. [Roadmap](Roadmap.md)
 1. [Part 1 - The Plugboard](#part-1-plugboard)
 1. [Part 2 - One Rotor](#part-2-one-rotor)
 
