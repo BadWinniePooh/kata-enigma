@@ -27,6 +27,24 @@ namespace Kata.Enigma.Tests
             Action act = () => new Plugboard(input);
             act.Should().Throw<ArgumentException>(because).WithMessage(expectedMessage);
         }
+
+        [Theory]
+        [InlineData("AB", 'A', 'B', "because A is mapped to B")]
+        [InlineData("AB", 'B', 'A', "because the mapping should be bidirectional")]
+        [InlineData("ABCD", 'C', 'D', "because C is mapped to D")]
+        [InlineData("ABCD", 'D', 'C', "because the mapping should be bidirectional")]
+        [InlineData("ABCDEFGHIJKLMNOPQRST", 'M', 'N', "because M is mapped to N")]
+        [InlineData("ABCDEFGHIJKLMNOPQRST", 'U', 'U', "because U is not mapped")]
+        public void GivenConfigurationMapsAsExpected(
+            string inputConfiguration,
+            char input,
+            char expectedOutput,
+            string because
+        )
+        {
+            var subject = new Plugboard(inputConfiguration);
+            subject.Convert(input).Should().Be(expectedOutput, because);
+        }
     }
 
     public class Plugboard
@@ -46,6 +64,14 @@ namespace Kata.Enigma.Tests
         {
             var usedConnections = _configuration.Length / 2;
             return AvailableConnections - usedConnections;
+        }
+
+        internal char Convert(char input)
+        {
+            var indexOfInputInConfiguration = _configuration.IndexOf(input);
+            var previousIndex = indexOfInputInConfiguration - 1;
+            var nextIndex = indexOfInputInConfiguration + 1;
+            return indexOfInputInConfiguration % 2 == 0 ? _configuration[nextIndex] : _configuration[previousIndex];
         }
     }
 }
