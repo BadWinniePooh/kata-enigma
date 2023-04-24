@@ -13,7 +13,7 @@ namespace Kata.Enigma.Tests
         public void GivenAmountOfConnectionsShouldReduceConnectionsLeft(string input, int expected, string because)
         {
             var subject = new Plugboard(input);
-            subject.ConnectionsLeft().Should().Be(expected);
+            subject.ConnectionsLeft().Should().Be(expected, because);
         }
 
         [Theory]
