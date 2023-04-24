@@ -18,4 +18,16 @@ public class Plugboard
         var usedConnections = _configuration.Length / 2;
         return AvailableConnections - usedConnections;
     }
+
+    internal char Convert(char input)
+    {
+        if (!_configuration.Contains(input))
+        {
+            return input;
+        }
+        var indexOfInputInConfiguration = _configuration.IndexOf(input);
+        var previousIndex = indexOfInputInConfiguration - 1;
+        var nextIndex = indexOfInputInConfiguration + 1;
+        return indexOfInputInConfiguration % 2 == 0 ? _configuration[nextIndex] : _configuration[previousIndex];
+    }
 }
