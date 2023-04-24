@@ -13,11 +13,26 @@ public class ValidatePlugboard
 
     public void ValidateConfiguration()
     {
+        ValidateConnectionContainsNoSpecialCharacters();
+
         ValidateAmountOfConnections();
 
         ValidateEveryConnectionConnectsToTwoLetters();
 
         ValidateEveryLetterExistsOnlyOnce();
+    }
+
+    private void ValidateConnectionContainsNoSpecialCharacters()
+    {
+        var configToValidate = _configuration.ToUpperInvariant();
+        var containsAE = configToValidate.Contains('Ä');
+        var containsSS = configToValidate.Contains('ß');
+        var containsOE = configToValidate.Contains('Ö');
+        var containsUE = configToValidate.Contains('Ü');
+        if (containsAE || containsSS || containsOE || containsUE)
+        {
+            throw new ArgumentException("Special characters are not supported.");
+        }
     }
 
     private void ValidateEveryLetterExistsOnlyOnce()

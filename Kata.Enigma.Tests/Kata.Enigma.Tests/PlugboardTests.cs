@@ -22,6 +22,7 @@ namespace Kata.Enigma.Tests
         [InlineData("AA", "Configuration can't contain the same letter multiple times.", "because letter A is duplicate.")]
         [InlineData("ABCDEAFG", "Configuration can't contain the same letter multiple times.", "because letter A is duplicate.")]
         [InlineData("ABEDEAFG", "Configuration can't contain the same letter multiple times.", "because letter A and E are duplicate.")]
+        [InlineData("ABAB", "Configuration can't contain the same letter multiple times.", "because letter A and B are duplicate.")]
         public void WrongConfigurationShouldThrowException(string input, string expectedMessage, string because)
         {
             Action act = () => new Plugboard(input);
@@ -44,6 +45,39 @@ namespace Kata.Enigma.Tests
         {
             var subject = new Plugboard(inputConfiguration);
             subject.Convert(input).Should().Be(expectedOutput, because);
+        }
+
+        [Theory]
+        [InlineData("Ä", "Special characters are not supported.", "because with this implementation of a plugboard Umlauts are not considered.")]
+        [InlineData("ä", "Special characters are not supported.", "because with this implementation of a plugboard Umlauts are not considered.")]
+        [InlineData("Ö", "Special characters are not supported.", "because with this implementation of a plugboard Umlauts are not considered.")]
+        [InlineData("ö", "Special characters are not supported.", "because with this implementation of a plugboard Umlauts are not considered.")]
+        [InlineData("Ü", "Special characters are not supported.", "because with this implementation of a plugboard Umlauts are not considered.")]
+        [InlineData("ü", "Special characters are not supported.", "because with this implementation of a plugboard Umlauts are not considered.")]
+        [InlineData("ß", "Special characters are not supported.", "because with this implementation of a plugboard Umlauts are not considered.")]
+        public void GivenUmlautShouldThrowDescriptiveException(
+            string input,
+            string expectedMessage,
+            string because
+        )
+        {
+            Action act = () => new Plugboard(input);
+            act.Should().Throw<ArgumentException>(because).WithMessage(expectedMessage);
+        }
+
+        [Theory]
+        [InlineData("ab", 'A', 'B')]
+        [InlineData("ab", 'a', 'B')]
+        [InlineData("AB", 'a', 'B')]
+        [InlineData("Ab", 'a', 'B')]
+        public void GivenLowerCaseShouldBeConsideredAsUpperCase(
+            string inputConfiguration,
+            char input,
+            char output
+        )
+        {
+            var subject = new Plugboard(inputConfiguration);
+            subject.Convert(input).Should().Be(output);
         }
     }
 }

@@ -8,7 +8,7 @@ public class Plugboard
 
     public Plugboard(string configuration = "")
     {
-        _configuration = configuration;
+        _configuration = configuration.ToUpperInvariant();
         _validatePlugboard = new ValidatePlugboard(this, _configuration);
         _validatePlugboard.ValidateConfiguration();
     }
@@ -21,11 +21,12 @@ public class Plugboard
 
     internal char Convert(char input)
     {
-        if (!_configuration.Contains(input))
+        var inputAsUpper = char.ToUpperInvariant(input);
+        if (!_configuration.Contains(inputAsUpper))
         {
-            return input;
+            return inputAsUpper;
         }
-        var indexOfInputInConfiguration = _configuration.IndexOf(input);
+        var indexOfInputInConfiguration = _configuration.IndexOf(inputAsUpper);
         var previousIndex = indexOfInputInConfiguration - 1;
         var nextIndex = indexOfInputInConfiguration + 1;
         return indexOfInputInConfiguration % 2 == 0 ? _configuration[nextIndex] : _configuration[previousIndex];
