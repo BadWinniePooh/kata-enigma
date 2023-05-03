@@ -3,11 +3,13 @@
     internal class ValidateRotor
     {
         private readonly string _configuration;
+        private readonly int _offset;
         private string message;
 
-        public ValidateRotor(string configuration)
+        public ValidateRotor(string configuration, int offset)
         {
             _configuration = configuration;
+            _offset = offset;
         }
 
         public void ValidateConfiguration()
@@ -22,6 +24,8 @@
                 throw new ArgumentException(message);
             }
         }
+
+        
 
         private bool ValidateConfigurationContainsNoSpecialCharacters(bool exception)
         {
@@ -59,6 +63,14 @@
                 message = "The configuration must contain a configuration for each letter, but it doesn't.";
             }
             return exception;
+        }
+
+        internal void ValidateOffset()
+        {
+            if(_offset < 1 || 26 < _offset)
+            {
+                throw new ArgumentException("Offset is supposed to be between 1 and 26.");
+            }
         }
     }
 }

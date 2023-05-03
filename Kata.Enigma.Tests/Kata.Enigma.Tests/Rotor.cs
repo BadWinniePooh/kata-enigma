@@ -9,8 +9,9 @@
         {
             _configuration = configuration;
             _offset = offset;
-            var validate = new ValidateRotor(configuration);
+            var validate = new ValidateRotor(configuration, offset);
             validate.ValidateConfiguration();
+            validate.ValidateOffset();
         }
     }
 }

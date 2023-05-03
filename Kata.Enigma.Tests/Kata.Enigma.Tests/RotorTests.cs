@@ -19,5 +19,25 @@ namespace Kata.Enigma.Tests
             Action act = () => new Rotor(input, 1);
             act.Should().Throw<ArgumentException>(because).WithMessage(expectedMessage);
         }
+
+        [Theory]
+        [InlineData(0, "Offset is supposed to be between 1 and 26.")]
+        [InlineData(27, "Offset is supposed to be between 1 and 26.")]
+        public void GivenValidConfigurationAndWrongOffsetShouldThrow(int offset, string expectedMessage)
+        {
+            Action act = () => new Rotor("ABCDEFGHIJKLMNOPQRSTUVWXYZ", offset);
+            act.Should().Throw<ArgumentException>(expectedMessage).WithMessage(expectedMessage);
+        }
+
+        [Theory]
+        [InlineData(1)]
+        [InlineData(13)]
+        [InlineData(26)]
+        public void GivenValidConfigurationAndValidOffsetShouldValidate(int offset)
+        {
+            Action act = () => new Rotor("ABCDEFGHIJKLMNOPQRSTUVWXYZ", offset);
+            act.Should().NotThrow();
+        }
+
     }
 }
