@@ -68,5 +68,15 @@ namespace Kata.Enigma.Tests
             actualConfigurationChar.Should().Be('M');
         }
 
+        [Theory]
+        [InlineData('A', 'W')]
+        [InlineData('B', 'E')]
+        [InlineData('Z', 'Q')]
+        public void RotorShouldEncryptAsExpected(char input, char expectedOutput)
+        {
+            var subject = new Rotor("QWERTZUIOPASDFGHJKLYXCVBNM", 1);
+            subject.EncryptChar(input).Should().Be(expectedOutput);
+        }
+
     }
 }

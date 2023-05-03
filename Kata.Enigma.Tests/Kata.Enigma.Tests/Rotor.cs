@@ -23,5 +23,26 @@
         {
             return (_startingPosition, _configuration[_startingPosition-1]);
         }
+
+        internal char EncryptChar(char input)
+        {
+            ChangeCurrentPositionTo(_startingPosition + 1);
+
+            var charOffsetToA = Char.ToUpperInvariant(input) - 'A';
+            var zeroIndexedStartingPosition = _startingPosition - 1;
+            var conversionIndex = zeroIndexedStartingPosition + charOffsetToA;
+            conversionIndex = PreventConversionIndexFromOverflowing(conversionIndex);
+            return _configuration[conversionIndex];
+        }
+
+        private static int PreventConversionIndexFromOverflowing(int conversionIndex)
+        {
+            if (conversionIndex >= 26)
+            {
+                conversionIndex -= 26;
+            }
+
+            return conversionIndex;
+        }
     }
 }
