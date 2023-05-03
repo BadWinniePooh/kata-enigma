@@ -23,9 +23,9 @@ namespace Kata.Enigma.Tests
         [Theory]
         [InlineData(0, "Offset is supposed to be between 1 and 26.")]
         [InlineData(27, "Offset is supposed to be between 1 and 26.")]
-        public void GivenValidConfigurationAndWrongOffsetShouldThrow(int offset, string expectedMessage)
+        public void GivenValidConfigurationAndWrongStartingPositionShouldThrow(int startingPosition, string expectedMessage)
         {
-            Action act = () => new Rotor("ABCDEFGHIJKLMNOPQRSTUVWXYZ", offset);
+            Action act = () => new Rotor("ABCDEFGHIJKLMNOPQRSTUVWXYZ", startingPosition);
             act.Should().Throw<ArgumentException>(expectedMessage).WithMessage(expectedMessage);
         }
 
@@ -33,11 +33,25 @@ namespace Kata.Enigma.Tests
         [InlineData(1)]
         [InlineData(13)]
         [InlineData(26)]
-        public void GivenValidConfigurationAndValidOffsetShouldValidate(int offset)
+        public void GivenValidConfigurationAndValidStartingPositionShouldValidate(int startingPosition)
         {
-            Action act = () => new Rotor("ABCDEFGHIJKLMNOPQRSTUVWXYZ", offset);
+            Action act = () => new Rotor("ABCDEFGHIJKLMNOPQRSTUVWXYZ", startingPosition);
             act.Should().NotThrow();
         }
+
+        [Theory]
+        [InlineData(1, 1, 'Q')]
+        [InlineData(2, 2, 'W')]
+        [InlineData(15, 15, 'G')]
+        [InlineData(26, 26, 'M')]
+        public void GivenStartingPositionAndConfigurationShouldReturnCorrectStateOfRotor(int inputOffset, int expectedOffset, char expectedConfigurationCharacter)
+        {
+            var subject = new Rotor("QWERTZUIOPASDFGHJKLYXCVBNM", inputOffset);
+            var (actualOffset, actualConfigurationChar) = subject.CurrentState();
+            actualOffset.Should().Be(expectedOffset);
+            actualConfigurationChar.Should().Be(expectedConfigurationCharacter);
+        }
+
 
     }
 }

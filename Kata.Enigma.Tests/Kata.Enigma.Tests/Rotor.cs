@@ -3,15 +3,20 @@
     internal class Rotor
     {
         private readonly string _configuration;
-        private readonly int _offset;
+        private readonly int _startingPosition;
 
-        public Rotor(string configuration, int offset)
+        public Rotor(string configuration, int startingPosition)
         {
             _configuration = configuration;
-            _offset = offset;
-            var validate = new ValidateRotor(configuration, offset);
+            _startingPosition = startingPosition;
+            var validate = new ValidateRotor(configuration, startingPosition);
             validate.ValidateConfiguration();
             validate.ValidateOffset();
+        }
+
+        internal (int, char) CurrentState()
+        {
+            return (_startingPosition, _configuration[_startingPosition-1]);
         }
     }
 }
