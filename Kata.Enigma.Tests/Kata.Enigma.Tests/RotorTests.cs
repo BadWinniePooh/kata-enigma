@@ -80,11 +80,12 @@ namespace Kata.Enigma.Tests
 
         [Theory]
         [InlineData("A", "E")]
+        [InlineData("ÄÖÜß.,-!", "")]
         [InlineData("AAAAA", "ERTZU")]
         [InlineData("Hello", "PIHJX")]
         [InlineData("A A", "E R")]
         [InlineData("Hello World", "PIHJX RVQCG")]
-        [InlineData("Hello! World.", "PIHJX! RVQCG.")]
+        [InlineData("Hello! World.", "PIHJX RVQCG")]
         [InlineData("ABCDEFGHIJKLMNOPQRSTUVWXYZABC", "ETUOADGJLXVNQETUOADGJLXVNQETU")]
         [InlineData("ABCDEFGHI JKLMNOPQRSTU VWXYZABC", "ETUOADGJL XVNQETUOADGJ LXVNQETU")]
         public void RotorShouldEncryptStringAsExpected(string input, string expectedOutput)

@@ -57,7 +57,10 @@
                 var charToEncrypt = input[index];
                 if(char.ToUpperInvariant(charToEncrypt) < 'A' || 'Z' < char.ToUpperInvariant(charToEncrypt))
                 {
-                    encryptedOutput += charToEncrypt;
+                    if(charToEncrypt == ' ')
+                    {
+                        encryptedOutput += charToEncrypt;
+                    }
                     continue;
                 }
                 encryptedOutput += EncryptChar(charToEncrypt);
