@@ -3,7 +3,7 @@
     internal class Rotor
     {
         private readonly string _configuration;
-        private readonly int _startingPosition;
+        private int _startingPosition;
 
         public Rotor(string configuration, int startingPosition)
         {
@@ -12,6 +12,11 @@
             var validate = new ValidateRotor(configuration, startingPosition);
             validate.ValidateConfiguration();
             validate.ValidateOffset();
+        }
+
+        internal void ChangeCurrentPositionTo(int newPosition)
+        {
+            _startingPosition = newPosition;
         }
 
         internal (int, char) CurrentState()

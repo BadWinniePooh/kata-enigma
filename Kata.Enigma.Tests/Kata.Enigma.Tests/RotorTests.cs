@@ -52,6 +52,21 @@ namespace Kata.Enigma.Tests
             actualConfigurationChar.Should().Be(expectedConfigurationCharacter);
         }
 
+        [Fact]
+        public void RotorStartingPositionCanBeChanged()
+        {
+            var subject = new Rotor("QWERTZUIOPASDFGHJKLYXCVBNM", 1);
+            var (_, actualConfigurationChar) = subject.CurrentState();
+            actualConfigurationChar.Should().Be('Q');
+
+            subject.ChangeCurrentPositionTo(3);
+            (_, actualConfigurationChar) = subject.CurrentState();
+            actualConfigurationChar.Should().Be('E');
+            
+            subject.ChangeCurrentPositionTo(26);
+            (_, actualConfigurationChar) = subject.CurrentState();
+            actualConfigurationChar.Should().Be('M');
+        }
 
     }
 }
