@@ -69,16 +69,6 @@ namespace Kata.Enigma.Tests
         }
 
         [Theory]
-        [InlineData('A', 'W')]
-        [InlineData('B', 'E')]
-        [InlineData('Z', 'Q')]
-        public void RotorShouldEncryptOneCharAsExpected(char input, char expectedOutput)
-        {
-            var subject = new Rotor("QWERTZUIOPASDFGHJKLYXCVBNM", 1);
-            subject.EncryptChar(input).Should().Be(expectedOutput);
-        }
-
-        [Theory]
         [InlineData("A", "E")]
         [InlineData("ÄÖÜß.,-!", "")]
         [InlineData("AAAAA", "ERTZU")]

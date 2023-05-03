@@ -28,7 +28,7 @@
             return (_startingPosition, _configuration[_startingPosition-1]);
         }
 
-        internal char EncryptChar(char input)
+        private char EncryptChar(char input)
         {
             ChangeCurrentPositionTo(_startingPosition + 1);
 
