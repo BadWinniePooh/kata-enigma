@@ -3,6 +3,7 @@
     internal class ValidateRotor
     {
         private readonly string _configuration;
+        private string message;
 
         public ValidateRotor(string configuration)
         {
@@ -12,20 +13,18 @@
         public void ValidateConfiguration()
         {
             var exception = false;
-            var message = "";
+            exception = ValidateConfigurationLength(exception);
+            exception = ValidateDistinctLettersInConfiguration(exception);
+            exception = ValidateConfigurationContainsNoSpecialCharacters(exception);
 
-            if (_configuration.Length != 26)
+            if (exception)
             {
-                exception = true;
-                message = "The configuration must contain a configuration for each letter, but it doesn't.";
+                throw new ArgumentException(message);
             }
+        }
 
-            if (_configuration.Distinct().Count() != _configuration.Length)
-            {
-                exception = true;
-                message = "The configuration may not contain duplicates.";
-            }
-
+        private bool ValidateConfigurationContainsNoSpecialCharacters(bool exception)
+        {
             var configToValidate = _configuration.ToUpperInvariant();
             var containsAE = configToValidate.Contains('Ä');
             var containsOE = configToValidate.Contains('Ö');
@@ -38,11 +37,28 @@
                 message = "The configuration may only contain letters between A-Z.";
             }
 
+            return exception;
+        }
 
-            if (exception)
+        private bool ValidateDistinctLettersInConfiguration(bool exception)
+        {
+            if (_configuration.Distinct().Count() != _configuration.Length)
             {
-                throw new ArgumentException(message);
+                exception = true;
+                message = "The configuration may not contain duplicates.";
             }
+
+            return exception;
+        }
+
+        private bool ValidateConfigurationLength(bool exception)
+        {
+            if (_configuration.Length != 26)
+            {
+                exception = true;
+                message = "The configuration must contain a configuration for each letter, but it doesn't.";
+            }
+            return exception;
         }
     }
 }

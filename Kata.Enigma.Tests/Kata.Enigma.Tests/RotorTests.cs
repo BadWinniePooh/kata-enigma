@@ -16,7 +16,7 @@ namespace Kata.Enigma.Tests
         [InlineData("äöüß", "The configuration may only contain letters between A-Z.", "Special characters are contained")]
         public void WrongConfiguratioShouldThrowException(string input, string expectedMessage, string because)
         {
-            Action act = () => new Rotor(input);
+            Action act = () => new Rotor(input, 1);
             act.Should().Throw<ArgumentException>(because).WithMessage(expectedMessage);
         }
     }
