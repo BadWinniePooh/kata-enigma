@@ -16,6 +16,10 @@
 
         internal void ChangeCurrentPositionTo(int newPosition)
         {
+            if(newPosition > 26)
+            {
+                newPosition -= 26;
+            }
             _startingPosition = newPosition;
         }
 
@@ -43,6 +47,22 @@
             }
 
             return conversionIndex;
+        }
+
+        internal object EncryptString(string input)
+        {
+            var encryptedOutput = "";
+            for(var index = 0; index < input.Length; index++)
+            {
+                var charToEncrypt = input[index];
+                if(char.ToUpperInvariant(charToEncrypt) < 'A' || 'Z' < char.ToUpperInvariant(charToEncrypt))
+                {
+                    encryptedOutput += charToEncrypt;
+                    continue;
+                }
+                encryptedOutput += EncryptChar(charToEncrypt);
+            }
+            return encryptedOutput;
         }
     }
 }
