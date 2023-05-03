@@ -70,3 +70,7 @@ Since a Rotor rotates it is not that easy. Before the conversion happens the rot
 	- If no input has happened the starting number should be returned
 - Validate the mapping, the starting position and that the mapping can't be changed
 	- Raise exceptions on violations
+- Remove any special characters from the string to encrypted
+- White spaces are kept during encryption to ensure readability after decryption and to make the kata a bit easier
+- Ensure that also the decryption works
+	- Hint: use your encrypted strings with the used configuration and starting number to validate your decryption
