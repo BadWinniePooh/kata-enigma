@@ -27,22 +27,20 @@ This is the first Code Kata I'm designing and this repo is currently work in Pro
 ## Part 1 - The Plugboard
 
 For the first part of this kata you have to design the plugboard.
-The plugboard contains all 26 letters and maps one to another.
+The plugboard is used to setup a mapping of the alphabet. It sets up a bidirectional mapping of a subset of letters. Unmapped letters are handled as if they connect to themselves. This is done the following way.
 
 - The plugboard contains a maximum of 10 connections
 	- Not all connections have to be used
-	- There will be at least 6 unmapped letters left and will be used unchanged
+	- There will be at least 6 unconnected letters left and need to be mapped automatically
 - Each connection is bidirectional
 	- That means A -> B also is B -> A
-	- This counts as one connection on the plugboard
-- Each connection is only used once
+	- This example counts as one connection on the plugboard
+- Each letter can only be connected to one other letter
 	- That means A -> B, B -> C is not valid
-	- No letter can connect to itself
-- Umlauts are not considered
-	- Optional you can convert Ä -> AE, Ö -> OE, Ü -> UE and ß -> SS
-- If a configuration or a connection is not legitimate raise an exception	
+	- No letter can be configured to connect to itself
+- If the configuration of the plugboard is not legitimate raise an exception	
 - There is no differentiation between upper and lowercase letters
-- The plugboard converts all letters from A to Z with a given configuration
+- The plugboard encrypts all 26 letters of the alphabet with a given configuration
 
 <a id="part-2-one-rotor"></a>
 ## Part 2 - One Rotor
